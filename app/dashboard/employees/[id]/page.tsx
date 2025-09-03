@@ -3,10 +3,11 @@ import Link from 'next/link';
 import Button from '@/components/ui/button';
 import Card from '@/components/ui/card';
 
-export default function EmployeeDetail({ params }: { params: { id: string } }) {
+export default async function EmployeeDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   // Mock employee data based on Employee interface
   const employee = {
-    _id: params.id,
+    _id: id,
     first_name: 'John',
     last_name: 'Doe',
     email: 'john.doe@company.com',
@@ -71,7 +72,7 @@ export default function EmployeeDetail({ params }: { params: { id: string } }) {
       </div>
 
       <div className="flex justify-end space-x-4">
-        <Link href={`/dashboard/employees/${params.id}/edit`}>
+        <Link href={`/dashboard/employees/${id}/edit`}>
           <Button title="Edit Employee" icon="edit" classname="bg-blue-600 text-white hover:bg-blue-700" />
         </Link>
         <Button title="Delete Employee" classname="bg-red-600 text-white hover:bg-red-700" />
